@@ -1,0 +1,51 @@
+name: Daily AI Brief
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 09:00 Asia/Shanghai == 01:00 UTC
+    - cron: '0 1 * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run daily brief (dry-run)
+        env:
+          # Keep dry-run by default; you can switch to real push later.
+          DRY_RUN: '1'
+          # If later enabling push:
+          # TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          # TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          # WECOM_WEBHOOK: ${{ secrets.WECOM_WEBHOOK }}
+          # WECOM_SECRET: ${{ secrets.WECOM_SECRET }}
+        run: |
+          python -m app run-now
+
+      - name: Upload report artifact (if exists)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily-brief
+          path: |
+            data/output/*.md
+          if-no-files-found: ignore
