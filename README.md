@@ -35,3 +35,11 @@ python -m app.main run-now
 - `TELEGRAM_CHAT_ID`
 - `WECOM_WEBHOOK_URL`
 - 可选：`GITHUB_TOKEN_OVERRIDE`（默认可不填，使用内置 `GITHUB_TOKEN`）
+
+## 目录结构（当前）
+- `app/` 运行入口（`python -m app.main run-now`）
+- `data/output/` 日报输出目录
+
+## 下一步（计划）
+- 引入更丰富的信息源与去重/排序策略
+- 增强推送的重试与可观测性
