@@ -3,6 +3,8 @@ from __future__ import annotations
 import datetime as dt
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 from app.sources.github import fetch_github_projects
 from app.sources.rss import fetch_rss_items
 from app.render.markdown import render_daily_brief
@@ -13,6 +15,7 @@ OUTPUT_DIR = Path("data/output")
 
 
 def run_now(date: dt.date | None = None) -> Path:
+    load_dotenv()
     date = date or dt.date.today()
 
     news = fetch_rss_items()
@@ -28,3 +31,9 @@ def run_now(date: dt.date | None = None) -> Path:
     push_wecom_markdown(md)
 
     return out_path
+
+
+if __name__ == "__main__":
+    from app.__main__ import main
+
+    raise SystemExit(main())

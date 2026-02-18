@@ -10,6 +10,8 @@ class NewsItem:
     url: str
     published_at: dt.datetime | None = None
     source: str | None = None
+    summary: str | None = None
+    source_url: str | None = None
 
 
 @dataclass(frozen=True)

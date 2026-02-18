@@ -24,6 +24,20 @@ python -m app.main run-now
 ## 环境变量
 见 `.env.example`。
 
+常用配置：
+- `RSS_FEEDS`：逗号分隔 RSS 列表
+- `RSS_INCLUDE_KEYWORDS`：RSS 标题包含关键字（逗号分隔）
+- `RSS_EXCLUDE_KEYWORDS`：RSS 标题排除关键字（逗号分隔）
+- `RSS_REQUEST_TIMEOUT`：RSS 请求超时秒数
+- `RSS_PER_FEED_LIMIT`：单个 RSS 抓取条数上限
+- `GITHUB_SEARCH_QUERY`：GitHub 搜索关键词（示例：`llm OR ai`）
+- `GITHUB_SEARCH_QUALIFIERS`：GitHub 限定条件（如 `language:Python topic:llm`）
+- `GITHUB_SEARCH_DAYS`：抓取近 N 天创建的项目
+- `GITHUB_SEARCH_PER_PAGE`：每次抓取条数（1-50）
+- `GITHUB_MIN_STARS`：最小星标数过滤
+- `GITHUB_EXCLUDE_KEYWORDS`：排除关键词（逗号分隔）
+- `GITHUB_TOKEN`：可选，提高速率限制
+
 ## GitHub Actions 定时
 工作流：`.github/workflows/daily.yml`
 - 定时：每天 09:00（上海）
